@@ -84,16 +84,36 @@
 
 
 
-<meta name="description" content="title: liangchuannandate: 2016-07-16 21:14:59tags:ajshdasddjashdjha—">
+<meta name="description" content="首先呢, 给大家看一个例子
+
+在上图中, 我们用的 strong 修饰的字符串, 当我们把一个可变的字符串赋值给它之后, 发生了一些, 我们并不想要的结果. 这个结果是由于多态的特性导致的. 父类指针指向了子类的对象, 当这个子类是可变的对象, 恰好又发生了修改的时候, 就影响到了父类的属性, 所以出现了我们看到的结果
+而如果我们用copy来修饰字符串的话, 就不会有这些问题
+copy 字面意思就">
 <meta property="og:type" content="article">
-<meta property="og:title" content="梁梁">
-<meta property="og:url" content="http://yoursite.com/2016/07/16/liangchuannan/index.html">
+<meta property="og:title" content="用@property声明的NSString, NSArray, NSDictionary 为什么要用copy">
+<meta property="og:url" content="http://yoursite.com/2016/07/19/用-property声明的NSString-NSArray-NSDictionary-为什么要用copy/index.html">
 <meta property="og:site_name" content="梁梁">
-<meta property="og:description" content="title: liangchuannandate: 2016-07-16 21:14:59tags:ajshdasddjashdjha—">
-<meta property="og:updated_time" content="2016-07-16T13:17:06.000Z">
+<meta property="og:description" content="首先呢, 给大家看一个例子
+
+在上图中, 我们用的 strong 修饰的字符串, 当我们把一个可变的字符串赋值给它之后, 发生了一些, 我们并不想要的结果. 这个结果是由于多态的特性导致的. 父类指针指向了子类的对象, 当这个子类是可变的对象, 恰好又发生了修改的时候, 就影响到了父类的属性, 所以出现了我们看到的结果
+而如果我们用copy来修饰字符串的话, 就不会有这些问题
+copy 字面意思就">
+<meta property="og:image" content="http://img.blog.csdn.net/20160708131823602">
+<meta property="og:image" content="http://img.blog.csdn.net/20160708134827819">
+<meta property="og:image" content="http://img.blog.csdn.net/20160708135550894">
+<meta property="og:image" content="http://img.blog.csdn.net/20160708140011933">
+<meta property="og:image" content="http://img.blog.csdn.net/20160708140538267">
+<meta property="og:image" content="http://img.blog.csdn.net/20160708152007656">
+<meta property="og:image" content="http://img.blog.csdn.net/20160708151924619">
+<meta property="og:updated_time" content="2016-07-19T02:16:49.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="梁梁">
-<meta name="twitter:description" content="title: liangchuannandate: 2016-07-16 21:14:59tags:ajshdasddjashdjha—">
+<meta name="twitter:title" content="用@property声明的NSString, NSArray, NSDictionary 为什么要用copy">
+<meta name="twitter:description" content="首先呢, 给大家看一个例子
+
+在上图中, 我们用的 strong 修饰的字符串, 当我们把一个可变的字符串赋值给它之后, 发生了一些, 我们并不想要的结果. 这个结果是由于多态的特性导致的. 父类指针指向了子类的对象, 当这个子类是可变的对象, 恰好又发生了修改的时候, 就影响到了父类的属性, 所以出现了我们看到的结果
+而如果我们用copy来修饰字符串的话, 就不会有这些问题
+copy 字面意思就">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20160708131823602">
 
 
 
@@ -114,9 +134,9 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2016/07/16/liangchuannan/"/>
+  <link rel="canonical" href="http://yoursite.com/2016/07/19/用-property声明的NSString-NSArray-NSDictionary-为什么要用copy/"/>
 
-  <title>  | 梁梁 </title>
+  <title> 用@property声明的NSString, NSArray, NSDictionary 为什么要用copy | 梁梁 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="">
@@ -226,7 +246,7 @@
             
             
               
-                
+                用@property声明的NSString, NSArray, NSDictionary 为什么要用copy
               
             
           </h1>
@@ -238,8 +258,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">Veröffentlicht am</span>
-            <time itemprop="dateCreated" datetime="2016-07-16T21:17:06+08:00" content="2016-07-16">
-              2016-07-16
+            <time itemprop="dateCreated" datetime="2016-07-19T10:16:08+08:00" content="2016-07-19">
+              2016-07-19
             </time>
           </span>
 
@@ -266,8 +286,23 @@
       
 
       
-        <hr>
-<p>title: liangchuannan<br>date: 2016-07-16 21:14:59<br>tags:<br>ajshdasd<br><code>djashdjha</code>—</p>
+        <p>首先呢, 给大家看一个例子</p>
+<p><img src="http://img.blog.csdn.net/20160708131823602" alt="这里写图片描述"></p>
+<p>在上图中, 我们用的 strong 修饰的字符串, 当我们把一个可变的字符串赋值给它之后, 发生了一些, 我们并不想要的结果. 这个结果是由于多态的特性导致的. 父类指针指向了子类的对象, 当这个子类是可变的对象, 恰好又发生了修改的时候, 就影响到了父类的属性, 所以出现了我们看到的结果</p>
+<p>而如果我们用copy来修饰字符串的话, 就不会有这些问题</p>
+<p>copy 字面意思就是 “复制”, “拷贝”, 它就是一个产生副本的过程.<br>它最大的特点就是: 源文件和副本文件不会相互影响, 即修改源文件的内容不会影响副本文件, 当然, 修改副本也不会影响源文件</p>
+<p>一. 下面介绍 copy 中关于深拷贝和浅拷贝的区别<br>本质区别就是: 是否产生了新的对象<br>1&gt;不可变对象 —copy—&gt; 不可变对象 (浅拷贝)</p>
+<p><img src="http://img.blog.csdn.net/20160708134827819" alt="这里写图片描述"></p>
+<p>此处的复制, 实质上是地址的拷贝, 并没有产生新的对象, 它们指向同一地址</p>
+<p>2&gt; 可变对象 —copy—&gt; 不可变对象(深拷贝)<br><img src="http://img.blog.csdn.net/20160708135550894" alt="这里写图片描述"></p>
+<p>当可变字符串做了 copy 操作之后, 就变成了不可变的, 它的地址发生了改变, 如果我们再想给它添加字符串, 就会产生崩溃</p>
+<p>3&gt;不可变对象 —mutableCopy—&gt; 可变对象 (深拷贝)<br>mutableCopy 就是深复制, 会在内存中重新分配一块内存空间<br><img src="http://img.blog.csdn.net/20160708140011933" alt="这里写图片描述"></p>
+<p>4&gt;可变对象 —mutableCopy—&gt; 可变对象(深拷贝)<br><img src="http://img.blog.csdn.net/20160708140538267" alt="这里写图片描述"></p>
+<p>如果26 行用NSString接收, 则stringM2 为不可变对象</p>
+<p>另: 浅拷贝, 源对象引用计数器 +1, 新对象指向源对象<br>深拷贝, 源对象和新对象引用计数器都为1</p>
+<p>此时再回去看我们最开始的例子, 就能明白为什么我们要用copy 来修饰NSString等类了.</p>
+<p>二. 再补充一下关于自定义类如何实现 copy 操作</p>
+<p>1.新建一个类, 此处我以 Person 类为例<br>2.让 Person 类遵守 NSCopying 协议<br><img src="http://img.blog.csdn.net/20160708152007656" alt="这里写图片描述"><br>3.实现 copyWithZone: 方法, 在该方法中创建一个新的对象, 并设置该对象的数据与现有对象一致, 并返回该对象<br><img src="http://img.blog.csdn.net/20160708151924619" alt="这里写图片描述"></p>
 
       
     </div>
@@ -293,17 +328,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/07/16/TEST/" rel="next" title="TEST">
-                <i class="fa fa-chevron-left"></i> TEST
+              <a href="/2016/07/19/OAuth/" rel="next" title="OAuth">
+                <i class="fa fa-chevron-left"></i> OAuth
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/07/19/OAuth/" rel="prev" title="OAuth">
-                OAuth <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>

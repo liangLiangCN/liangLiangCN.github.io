@@ -228,6 +228,209 @@
             
               
                 
+                <a class="post-title-link" href="/2016/07/19/用-property声明的NSString-NSArray-NSDictionary-为什么要用copy/" itemprop="url">
+                  用@property声明的NSString, NSArray, NSDictionary 为什么要用copy
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Veröffentlicht am</span>
+            <time itemprop="dateCreated" datetime="2016-07-19T10:16:08+08:00" content="2016-07-19">
+              2016-07-19
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>首先呢, 给大家看一个例子</p>
+<p><img src="http://img.blog.csdn.net/20160708131823602" alt="这里写图片描述"></p>
+<p>在上图中, 我们用的 strong 修饰的字符串, 当我们把一个可变的字符串赋值给它之后, 发生了一些, 我们并不想要的结果. 这个结果是由于多态的特性导致的. 父类指针指向了子类的对象, 当这个子类是可变的对象, 恰好又发生了修改的时候, 就影响到了父类的属性, 所以出现了我们看到的结果</p>
+<p>而如果我们用copy来修饰字符串的话, 就不会有这些问题</p>
+<p>copy 字面意思就是 “复制”, “拷贝”, 它就是一个产生副本的过程.<br>它最大的特点就是: 源文件和副本文件不会相互影响, 即修改源文件的内容不会影响副本文件, 当然, 修改副本也不会影响源文件</p>
+<p>一. 下面介绍 copy 中关于深拷贝和浅拷贝的区别<br>本质区别就是: 是否产生了新的对象<br>1&gt;不可变对象 —copy—&gt; 不可变对象 (浅拷贝)</p>
+<p><img src="http://img.blog.csdn.net/20160708134827819" alt="这里写图片描述"></p>
+<p>此处的复制, 实质上是地址的拷贝, 并没有产生新的对象, 它们指向同一地址</p>
+<p>2&gt; 可变对象 —copy—&gt; 不可变对象(深拷贝)<br><img src="http://img.blog.csdn.net/20160708135550894" alt="这里写图片描述"></p>
+<p>当可变字符串做了 copy 操作之后, 就变成了不可变的, 它的地址发生了改变, 如果我们再想给它添加字符串, 就会产生崩溃</p>
+<p>3&gt;不可变对象 —mutableCopy—&gt; 可变对象 (深拷贝)<br>mutableCopy 就是深复制, 会在内存中重新分配一块内存空间<br><img src="http://img.blog.csdn.net/20160708140011933" alt="这里写图片描述"></p>
+<p>4&gt;可变对象 —mutableCopy—&gt; 可变对象(深拷贝)<br><img src="http://img.blog.csdn.net/20160708140538267" alt="这里写图片描述"></p>
+<p>如果26 行用NSString接收, 则stringM2 为不可变对象</p>
+<p>另: 浅拷贝, 源对象引用计数器 +1, 新对象指向源对象<br>深拷贝, 源对象和新对象引用计数器都为1</p>
+<p>此时再回去看我们最开始的例子, 就能明白为什么我们要用copy 来修饰NSString等类了.</p>
+<p>二. 再补充一下关于自定义类如何实现 copy 操作</p>
+<p>1.新建一个类, 此处我以 Person 类为例<br>2.让 Person 类遵守 NSCopying 协议<br><img src="http://img.blog.csdn.net/20160708152007656" alt="这里写图片描述"><br>3.实现 copyWithZone: 方法, 在该方法中创建一个新的对象, 并设置该对象的数据与现有对象一致, 并返回该对象<br><img src="http://img.blog.csdn.net/20160708151924619" alt="这里写图片描述"></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/07/19/OAuth/" itemprop="url">
+                  OAuth
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Veröffentlicht am</span>
+            <time itemprop="dateCreated" datetime="2016-07-19T10:14:45+08:00" content="2016-07-19">
+              2016-07-19
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/07/16/liangchuannan/" itemprop="url">
                   Unbenannt
                 </a>
@@ -437,7 +640,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">2</span>
+              <span class="site-state-item-count">4</span>
               <span class="site-state-item-name">Artikel</span>
             </a>
           </div>
