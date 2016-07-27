@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    
+    <title>通过交换两个数组的元素，使数组元素和之差最小 | 梁梁</title>
+    <meta name="renderer" content="webkit">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <meta name="description" content="iOS">
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="通过交换两个数组的元素，使数组元素和之差最小 | 梁梁">
+    <meta name="twitter:description" content="iOS">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="通过交换两个数组的元素，使数组元素和之差最小 | 梁梁">
+    <meta property="og:description" content="iOS">
+
+    
+    <meta name="author" content="梁梁">
+    
+    <link rel="stylesheet" href="/css/vno.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
+
+    
+    <link rel="icon" href="/images/logo.con">
+    
+
+    <meta name="generator" content="hexo"/>
+    
+
+    <link rel="canonical" href="http://yoursite.com/2016/07/27/通过交换两个数组的元素，使数组元素和之差最小/"/>
+
+    
+</head>
+
+<body class="home-template">
+
+    <span class="mobile btn-mobile-menu">
+        <i class="fa fa-list btn-mobile-menu__icon"></i>
+        <i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+<header class="panel-cover panel-cover--collapsed" style="background-image: url(/images/background-cover.jpg)">
+  <div class="panel-main">
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/" title="前往 梁梁 的主页"><img src="/images/a.png" width="80" alt="梁梁 logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage for 梁梁">梁梁</a></h1>
+        
+        <span class="panel-cover__subtitle panel-subtitle">多一点分享，多一点感动</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">iOS</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+
+        <div class="navigation-wrapper">
+          <div>
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+              <li class="navigation__item"><a href="/" title="访问博客" class="blog-button">主页</a></li>
+            
+              <li class="navigation__item"><a href="/archives">文章</a></li>
+            
+              <li class="navigation__item"><a href="/aboutme">关于我</a></li>
+            
+            </ul>
+          </nav>
+          </div>
+          <div>
+          <nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  <!-- Weibo-->
+  
+
+  <!-- Github -->
+  
+  <li class="navigation__item">
+    <a href="https://github.com/liangLiangCN" title="查看我的GitHub主页" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+
+
+<!-- Stack Overflow -->
+        
+
+  <!-- Google Plus -->
+  
+
+<!-- Facebook -->
+
+  
+<!-- Twitter -->
+
+  
+
+
+
+  </ul>
+</nav>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay cover-blue"></div>
+  </div>
+</header>
+
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner">
+            <article class="post-container post-container--single">
+
+  <header class="post-header">
+    <div class="post-meta">
+      <time datetime="2016-07-27T10:06:46.000Z" class="post-list__meta--date date">2016-07-27</time> &#8226; <span class="post-meta__tags tags">于&nbsp;
+  <a class="tag-link" href="/tags/梁川楠/">梁川楠</a>
+</span>
+    </div>
+    <h1 class="post-title">通过交换两个数组的元素，使数组元素和之差最小</h1>
+  </header>
+
+  <section class="post">
+    <p>前几天看到一个算法题：有两个数组A，B，大小都为 n，数组元素的值任意，且无序，要求通过交换A和B中的元素，使得数组A中元素的和与数组B中元素的和之间的差最小。<br>我的想法就是：将两个数组合并为一个数组，并排序，然后再平分，每次取一头一尾两个，轮流放到A、B两个数组中。下面我把我的代码放上来</p>
+<p>// 定义两个数组<br>NSMutableArray <em>array1 = [NSMutableArray arrayWithObjects:@5, @11, @32, @74, @36, nil];<br>NSMutableArray </em>array2 = [NSMutableArray arrayWithObjects:@26, @17, @8, @57, @10, nil];</p>
+<p>// 定义一个BOOL值, 用来判断数组的奇偶, 如果为偶数,则为YES, 反之, 为NO<br>BOOL isEvenNumber = (array1.count % 2) ? NO : YES;</p>
+<p>// 把两个数组整合到一起<br>NSMutableArray *array = [NSMutableArray arrayWithArray:array1];<br>[array addObjectsFromArray:array2];</p>
+<p>// 对数组进行排序(这个方法返回的结果是从小到大)<br>NSArray *sortArray = [array sortedArrayUsingSelector:@selector(compare:)];</p>
+<p>// 清空两个数组<br>[array1 removeAllObjects];<br>[array2 removeAllObjects];</p>
+<p>分发数组元素</p>
+<p>if (isEvenNumber) {<br>// 偶数<br>for (NSInteger i = 0; i&lt;(sortArray.count / 2); i++) {</p>
+<p>[array1 addObject:sortArray[i]];<br>[array1 addObject:sortArray[sortArray.count - i -1]];</p>
+<p>[array2 addObject:sortArray[i + 1]];<br>[array2 addObject:sortArray[sortArray.count - i - 2]];</p>
+<p>i++;<br>}</p>
+<p>} else {<br>// 奇数<br>[array1 addObject:sortArray[sortArray.count / 2 - 1]];<br>[array2 addObject:sortArray[sortArray.count / 2]];</p>
+<p>for (NSInteger i = 0; i&lt;sortArray.count / 2 - 1; i++) {</p>
+<p>[array1 addObject:sortArray[i]];<br>[array1 addObject:sortArray[sortArray.count - i - 1]];</p>
+<p>[array2 addObject:sortArray[i + 1]];<br>[array2 addObject:sortArray[sortArray.count - i - 2]];</p>
+<p>i++;<br>}<br>}</p>
+<p>if 语句里面的内容也可以抽一个方法， 就不再演示了。</p>
+
+  </section>
+
+</article>
+
+
+<section class="post-comments">
+  <!-- 多说评论框 start -->
+  <div class="ds-thread" data-thread-key="http://yoursite.com/2016/07/27/通过交换两个数组的元素，使数组元素和之差最小/" data-title="通过交换两个数组的元素，使数组元素和之差最小" data-url="http://yoursite.com/2016/07/27/通过交换两个数组的元素，使数组元素和之差最小/"></div>
+  <!-- 多说评论框 end -->
+  <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+  <script type="text/javascript">
+  var duoshuoQuery = {short_name:"liangcn"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+  </script>
+<!-- 多说公共JS代码 end -->
+</section>
+
+
+
+            <footer class="footer">
+    <span class="footer__copyright">
+        基于 <a href="http://hexo.io">Hexo</a> 搭建，感谢 <a href="https://pages.github.com/">GitHub Pages</a> 提供免费的托管服务
+    </span>
+    <span class="footer__copyright">
+        &copy; 2016 - 本站由 <a href="/">@Liang Chuan Nan</a> 创建,
+        使用<a href="https://github.com/lenbo-ma/hexo-theme-vno">hexo-theme-vno</a>主题,
+        修改自<a href="http://github.com/onevcat/vno" target="_blank">Vno</a>
+    </span>
+</footer>
+
+        </div>
+    </div>
+
+    <script src="http://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+
+    
+</body>
+</html>
