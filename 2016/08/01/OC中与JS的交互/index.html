@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    
+    <title>OC中与JS的交互 | 梁梁</title>
+    <meta name="renderer" content="webkit">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <meta name="description" content="iOS">
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="OC中与JS的交互 | 梁梁">
+    <meta name="twitter:description" content="iOS">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="OC中与JS的交互 | 梁梁">
+    <meta property="og:description" content="iOS">
+
+    
+    <meta name="author" content="梁梁">
+    
+    <link rel="stylesheet" href="/css/vno.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
+
+    
+    <link rel="icon" href="/images/logo.con">
+    
+
+    <meta name="generator" content="hexo"/>
+    
+
+    <link rel="canonical" href="http://yoursite.com/2016/08/01/OC中与JS的交互/"/>
+
+    
+</head>
+
+<body class="home-template">
+
+    <span class="mobile btn-mobile-menu">
+        <i class="fa fa-list btn-mobile-menu__icon"></i>
+        <i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+<header class="panel-cover panel-cover--collapsed" style="background-image: url(/images/background-cover.jpg)">
+  <div class="panel-main">
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/" title="前往 梁梁 的主页"><img src="/images/a.png" width="80" alt="梁梁 logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage for 梁梁">梁梁</a></h1>
+        
+        <span class="panel-cover__subtitle panel-subtitle">多一点分享，多一点感动</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">iOS</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+
+        <div class="navigation-wrapper">
+          <div>
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+              <li class="navigation__item"><a href="/" title="访问博客" class="blog-button">主页</a></li>
+            
+              <li class="navigation__item"><a href="/archives">文章</a></li>
+            
+              <li class="navigation__item"><a href="/aboutme">关于我</a></li>
+            
+            </ul>
+          </nav>
+          </div>
+          <div>
+          <nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  <!-- Weibo-->
+  
+
+  <!-- Github -->
+  
+  <li class="navigation__item">
+    <a href="https://github.com/liangLiangCN" title="查看我的GitHub主页" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+
+
+<!-- Stack Overflow -->
+        
+
+  <!-- Google Plus -->
+  
+
+<!-- Facebook -->
+
+  
+<!-- Twitter -->
+
+  
+
+
+
+  </ul>
+</nav>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay cover-blue"></div>
+  </div>
+</header>
+
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner">
+            <article class="post-container post-container--single">
+
+  <header class="post-header">
+    <div class="post-meta">
+      <time datetime="2016-08-01T05:25:00.000Z" class="post-list__meta--date date">2016-08-01</time> &#8226; <span class="post-meta__tags tags">于&nbsp;
+  <a class="tag-link" href="/tags/梁川楠创建/">梁川楠创建</a>
+</span>
+    </div>
+    <h1 class="post-title">OC中与JS的交互</h1>
+  </header>
+
+  <section class="post">
+    <p>当我们想要在 iPhone 端加载一个网页时, 往往需要对这个页面做一些处理, 这就涉及到了 JS(JavaScript) 交互</p>
+<p>以大众点评的一个团购信息页为例<br>这是网址: <a href="http://t.dianping.com/deal/8820236" target="_blank" rel="external">http://t.dianping.com/deal/8820236</a></p>
+<p><img src="http://img.blog.csdn.net/20160731204256243" alt="这里写图片描述"></p>
+<p><img src="http://img.blog.csdn.net/20160731204317228" alt="这里写图片描述"></p>
+<p>因为UIWebView 太耗费性能, 所以采用WKWebView</p>
+<p>1.首先导入框架</p>
+<p>#import <webkit webkit.h=""></webkit></p>
+<p>2.加载页面, 在 viewDidLoad中写下列代码</p>
+<p>NSURL *url = [NSURL URLWithString:@”<a href="http://t.dianping.com/deal/8820236" target="_blank" rel="external">http://t.dianping.com/deal/8820236</a>“];</p>
+<p>NSURLRequest <em>request = [NSURLRequest requestWithURL:url];<br>WKWebView </em>webView = [[WKWebView alloc] initWithFrame:self.view.bounds];</p>
+<p>[webView loadRequest:request];</p>
+<p>[self.view addSubview:webView];</p>
+<p>此时可以运行看看页面是否加载成功</p>
+<p>3.我们需要在页面即将加载完毕的时候, 删除我们不想要的元素, 所以需要我们监听 webView 的加载情况</p>
+<p>// 设置代理, 遵守协议 WKNavigationDelegate<br>webView.navigationDelegate = self;</p>
+<p>webView, 有两个协议, 其中 navigationDelegate 用来追踪加载过程, 即页面开始加载、加载完成、加载失败; UIDelegate 处理web界面的三种提示框(警告框、确认框、输入框)</p>
+<p>实现代理方法</p>
+<ul>
+<li>(void)webView:(WKWebView <em>)webView didFinishNavigation:(WKNavigation </em>)navigation {<br>}</li>
+</ul>
+<p>我们在这个方法中, 编写与JS交互相关的代码</p>
+<p>这里需要补充一些关于JS交互的知识:<br>1&gt;我们使用JS可以修改网页上元素的值, 也可以删掉任意我们想要删掉的元素, 但是做这些事情的前提是, 我们要找到它, 才能对它做一系列的操作<br>2&gt;想要找到某一个元素, 关键点就是通过decument 调用它的方法来查询对应的元素<br>3&gt;我们可以根据 id 来找, 也可以通过标签名, 还可以通过class名<br><img src="http://img.blog.csdn.net/20160731221418489" alt="这里写图片描述"><br>4&gt;找到该元素之后, 通过parentNode 找到它的父控件, 然后通过它的父控件删除它</p>
+<p>打开我们的浏览器, 调到开发者工具界面(我用的谷歌), 调到手机版<br><img src="http://img.blog.csdn.net/20160731221901073" alt="这里写图片描述"></p>
+<p>body里面就是元素构成, 当我们指向里面的某一行时, 对应的元素会发光<br><img src="http://img.blog.csdn.net/20160731222051255" alt="这里写图片描述"></p>
+<p>此时,如果我们直接按Delete 键删掉这一行, 我们就会发现上面的导航栏不见了, 所有我们可以肯定, 这个header 就是我们要删掉的东西<br>因为整个页面只有一个header, 所以我们直接通过header 来找到我们需要的元素, 通过代码查找的方式如下图(这是根据标签名的方式):<br><img src="http://img.blog.csdn.net/20160731222431351" alt="这里写图片描述"></p>
+<p><img src="http://img.blog.csdn.net/20160731223205478" alt="这里写图片描述"></p>
+<p>var headerElement = document.getElementsByTagName(‘header’)[0];<br>headerElement.parentNode.removeChild(headerElement);</p>
+<p>定义一个变量, 接收这个元素, 通过parentNode 找到它的父级元素, 然后把它自己删掉, 通过上面的代码, 我们就能把导航栏删掉, 所以这个就是我们需要的 JavaScript 语句</p>
+<p>再来看 webView 的代理方法<br><img src="http://img.blog.csdn.net/20160731224029562" alt="这里写图片描述"></p>
+<p>此时运行我们的程序, 就会发现导航栏已经被删掉了~</p>
+<p>同理, 我们可删除掉其他我们不想要的元素</p>
+<p>// 删除底部view<br>NSString *deleteFooterElement = @”var footerElement = document.getElementsByTagName(‘footer’)[0]; footerElement.parentNode.removeChild(footerElement);”;<br>[webView evaluateJavaScript:deleteFooterElement completionHandler:nil];</p>
+<p>// 删除底部的button<br>NSString *deleteButtonElement = @”var button = document.getElementsByClassName(‘footer-btn-fix’)[0]; button.parentNode.removeChild(button);”;<br>[webView evaluateJavaScript:deleteButtonElement completionHandler:nil];</p>
+<p>其中 JavaScript 中的变量名, 没有要求, 可以随便定义<br>此时再运行我们的程序, 就会发现我们想要删掉的已经都删掉了</p>
+
+  </section>
+
+</article>
+
+
+<section class="post-comments">
+  <!-- 多说评论框 start -->
+  <div class="ds-thread" data-thread-key="http://yoursite.com/2016/08/01/OC中与JS的交互/" data-title="OC中与JS的交互" data-url="http://yoursite.com/2016/08/01/OC中与JS的交互/"></div>
+  <!-- 多说评论框 end -->
+  <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+  <script type="text/javascript">
+  var duoshuoQuery = {short_name:"liangcn"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+  </script>
+<!-- 多说公共JS代码 end -->
+</section>
+
+
+
+            <footer class="footer">
+    <span class="footer__copyright">
+        基于 <a href="http://hexo.io">Hexo</a> 搭建，感谢 <a href="https://pages.github.com/">GitHub Pages</a> 提供免费的托管服务
+    </span>
+    <span class="footer__copyright">
+        &copy; 2016 - 本站由 <a href="/">@Liang Chuan Nan</a> 创建,
+        使用<a href="https://github.com/lenbo-ma/hexo-theme-vno">hexo-theme-vno</a>主题,
+        修改自<a href="http://github.com/onevcat/vno" target="_blank">Vno</a>
+    </span>
+</footer>
+
+        </div>
+    </div>
+
+    <script src="http://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+
+    
+</body>
+</html>
