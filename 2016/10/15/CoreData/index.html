@@ -149,54 +149,95 @@
 <p>创建好之后, 会生成这些模型文件<br><img src="http://img.blog.csdn.net/20161013103028275" alt="这里写图片描述"></p>
 <p>在控制器中, 存数据和写数据的代码:</p>
 <p>存数据:</p>
-<p>// 为了获取 appDelegate 中的上下文属性<br>AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];</p>
-<p>Person *person = [NSEntityDescription insertNewObjectForEntityForName:@”Person” inManagedObjectContext:appDelegate.managedObjectContext];</p>
-<p>person.name = @”lcn”;<br>person.age = @(20);</p>
-<p>// 保存数据<br>[appDelegate.managedObjectContext save:nil];</p>
-<p>取数据</p>
-<p>AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];</p>
-<p>// NSFetchRequest 请求对象<br>NSFetchRequest *request = [[NSFetchRequest alloc] init];</p>
-<p>// 实体<br>NSEntityDescription *entity = [NSEntityDescription entityForName:@”Person” inManagedObjectContext:appDelegate.managedObjectContext];<br>request.entity = entity;</p>
-<p>// 谓词<br>NSPredicate *predicate = [NSPredicate predicateWithFormat:@”name = %@”, @”lcn”];<br>request.predicate = predicate;</p>
-<p>// 排序<br>NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@”age” ascending:YES];<br>request.sortDescriptors = @[sort];</p>
-<p>NSArray *tempArr = [appDelegate.managedObjectContext executeFetchRequest:request error:nil];</p>
-<p>[tempArr enumerateObjectsUsingBlock:^(Person <em>  _Nonnull obj, NSUInteger idx, BOOL </em> _Nonnull stop) {</p>
-<p>NSLog(@”%@: %@”, obj.name, obj.age);<br>}];</p>
-<p>2&gt;但是在真正开发中, 我们可能一开始并不能确定我们是否要使用 CoreData, 当我们在后续中想要使用 CoreData 时, 很显然我们不能重新搭建一个项目, 所以就需要我们自己来编写对应的代码</p>
+<pre><code>// 为了获取 appDelegate 中的上下文属性
+AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+
+Person *person = [NSEntityDescription insertNewObjectForEntityForName:@&quot;Person&quot; inManagedObjectContext:appDelegate.managedObjectContext];
+
+person.name = @&quot;lcn&quot;;
+person.age = @(20);
+
+// 保存数据
+[appDelegate.managedObjectContext save:nil];
+</code></pre><p>取数据</p>
+<pre><code>AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+
+// NSFetchRequest 请求对象
+NSFetchRequest *request = [[NSFetchRequest alloc] init];
+
+// 实体
+NSEntityDescription *entity = [NSEntityDescription entityForName:@&quot;Person&quot; inManagedObjectContext:appDelegate.managedObjectContext];
+request.entity = entity;
+
+// 谓词
+NSPredicate *predicate = [NSPredicate predicateWithFormat:@&quot;name = %@&quot;, @&quot;lcn&quot;];
+request.predicate = predicate;
+
+// 排序
+NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@&quot;age&quot; ascending:YES];
+request.sortDescriptors = @[sort];
+
+NSArray *tempArr = [appDelegate.managedObjectContext executeFetchRequest:request error:nil];
+
+[tempArr enumerateObjectsUsingBlock:^(Person *  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+
+NSLog(@&quot;%@: %@&quot;, obj.name, obj.age);
+}];
+</code></pre><p>2&gt;但是在真正开发中, 我们可能一开始并不能确定我们是否要使用 CoreData, 当我们在后续中想要使用 CoreData 时, 很显然我们不能重新搭建一个项目, 所以就需要我们自己来编写对应的代码</p>
 <p>创建一个工具类, 以及实体文件<br><img src="http://img.blog.csdn.net/20161013162124019" alt="这里写图片描述"></p>
 <p>LCNCoreDataManager.h 中的代码</p>
-<p>/**</p>
-<ul>
-<li>单例<br>*/</li>
-</ul>
-<ul>
-<li>(instancetype)shareManager;</li>
-</ul>
-<p>/**</p>
-<ul>
-<li>管理对象的上下文<br><em>/<br>@property (nonatomic,strong) NSManagedObjectContext </em>context;</li>
-</ul>
-<p>LCNCoreDataManager.m 中的代码</p>
-<ul>
-<li>(instancetype)shareManager {</li>
-</ul>
-<p>static id _instance;</p>
-<p>static dispatch_once_t once;<br>dispatch_once(&amp;once, ^{</p>
-<p>_instance = [[self alloc] init];</p>
-<p>});</p>
-<p>return _instance;<br>}</p>
-<p>#pragma mark - 上下文的懒加载</p>
-<ul>
-<li>(NSManagedObjectContext *)context {<br>if (!_context) {</li>
-</ul>
-<p>// 加载模型文件  momd 为简写<br>NSURL *url = [[NSBundle mainBundle] URLForResource:@”Dog” withExtension:@”momd”];</p>
-<p>// 创建模型文件<br>NSManagedObjectModel *model = [[NSManagedObjectModel alloc] initWithContentsOfURL:url];</p>
-<p>// 创建协调器<br>NSPersistentStoreCoordinator *coordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:model];</p>
-<p>// 创建上下文<br>_context = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];</p>
-<p>// 把协调器传递给上下文<br>[_context setPersistentStoreCoordinator:coordinator];</p>
-<p>// 数据库地址(要把文件名也拼接上)<br>NSString <em>string = [NSSearchPathForDirectoriesInDomains(NSDocumentationDirectory, NSUserDomainMask, YES).lastObject stringByAppendingPathComponent:@”Dog.db”];<br>NSURL </em>pathUrl = [NSURL URLWithString:string];</p>
-<p>[coordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:pathUrl options:nil error:nil];<br>}<br>return _context;<br>}</p>
-<p>然后接下来的过程就和上面一样了, 注意获取上下文的时候是通过我们自己的工具类获取, 上面的是通过 AppDelegate 获取</p>
+<pre><code>/**
+*  单例
+*/
++ (instancetype)shareManager;
+
+/**
+*  管理对象的上下文
+*/
+@property (nonatomic,strong) NSManagedObjectContext *context;
+</code></pre><p>LCNCoreDataManager.m 中的代码</p>
+<pre><code>+ (instancetype)shareManager {
+
+    static id _instance;
+
+    static dispatch_once_t once;
+    dispatch_once(&amp;once, ^{
+
+        _instance = [[self alloc] init];
+
+    });
+
+    return _instance;
+}
+
+#pragma mark - 上下文的懒加载
+- (NSManagedObjectContext *)context {
+    if (!_context) {
+
+        // 加载模型文件  momd 为简写
+        NSURL *url = [[NSBundle mainBundle] URLForResource:@&quot;Dog&quot; withExtension:@&quot;momd&quot;];
+
+        // 创建模型文件
+        NSManagedObjectModel *model = [[NSManagedObjectModel alloc] initWithContentsOfURL:url];
+
+        // 创建协调器
+        NSPersistentStoreCoordinator *coordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:model];
+
+        // 创建上下文
+        _context = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
+
+        // 把协调器传递给上下文
+        [_context setPersistentStoreCoordinator:coordinator];
+
+        // 数据库地址(要把文件名也拼接上)
+        NSString *string = [NSSearchPathForDirectoriesInDomains(NSDocumentationDirectory, NSUserDomainMask, YES).lastObject stringByAppendingPathComponent:@&quot;Dog.db&quot;];
+        NSURL *pathUrl = [NSURL URLWithString:string];
+
+        [coordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:pathUrl options:nil error:nil];
+        }
+    return _context;
+}
+</code></pre><p>然后接下来的过程就和上面一样了, 注意获取上下文的时候是通过我们自己的工具类获取, 上面的是通过 AppDelegate 获取</p>
 
   </section>
 
