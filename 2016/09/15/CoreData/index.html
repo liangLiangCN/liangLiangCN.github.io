@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    
+    <title>CoreData | 梁梁</title>
+    <meta name="renderer" content="webkit">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <meta name="description" content="iOS">
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="CoreData | 梁梁">
+    <meta name="twitter:description" content="iOS">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="CoreData | 梁梁">
+    <meta property="og:description" content="iOS">
+
+    
+    <meta name="author" content="梁梁">
+    
+    <link rel="stylesheet" href="/css/vno.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
+
+    
+    <link rel="icon" href="/images/logo.con">
+    
+
+    <meta name="generator" content="hexo"/>
+    
+
+    <link rel="canonical" href="http://yoursite.com/2016/09/15/CoreData/"/>
+
+    
+</head>
+
+<body class="home-template">
+
+    <span class="mobile btn-mobile-menu">
+        <i class="fa fa-list btn-mobile-menu__icon"></i>
+        <i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+<header class="panel-cover panel-cover--collapsed" style="background-image: url(/images/background-cover.jpg)">
+  <div class="panel-main">
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/" title="前往 梁梁 的主页"><img src="/images/a.png" width="80" alt="梁梁 logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage for 梁梁">梁梁</a></h1>
+        
+        <span class="panel-cover__subtitle panel-subtitle">多一点分享，多一点感动</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">iOS</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+
+        <div class="navigation-wrapper">
+          <div>
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+              <li class="navigation__item"><a href="/" title="访问博客" class="blog-button">主页</a></li>
+            
+              <li class="navigation__item"><a href="/archives">文章</a></li>
+            
+              <li class="navigation__item"><a href="/aboutme">关于我</a></li>
+            
+            </ul>
+          </nav>
+          </div>
+          <div>
+          <nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  <!-- Weibo-->
+  
+
+  <!-- Github -->
+  
+  <li class="navigation__item">
+    <a href="https://github.com/liangLiangCN" title="查看我的GitHub主页" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+
+
+<!-- Stack Overflow -->
+        
+
+  <!-- Google Plus -->
+  
+
+<!-- Facebook -->
+
+  
+<!-- Twitter -->
+
+  
+
+
+
+  </ul>
+</nav>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay cover-blue"></div>
+  </div>
+</header>
+
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner">
+            <article class="post-container post-container--single">
+
+  <header class="post-header">
+    <div class="post-meta">
+      <time datetime="2016-09-15T03:46:51.000Z" class="post-list__meta--date date">2016-09-15</time> &#8226; <span class="post-meta__tags tags">于&nbsp;
+  <a class="tag-link" href="/tags/梁川楠创建/">梁川楠创建</a>
+</span>
+    </div>
+    <h1 class="post-title">CoreData</h1>
+  </header>
+
+  <section class="post">
+    <p><strong>1.简介</strong><br>Core Data 是 iOS5 之后才出现的一个框架，它提供了对象-关系映射 (ORM) 的功能，即能够将 OC 对象转化成数据，保存在 SQLite 数据库文件中，也能够将保存在数据库中的数据还原成 OC 对象。在此数据操作期间，我们不需要编写任何 SQL 语句</p>
+<p>CoreData 本质是一个ORM框架 ORM Objective-Relational Mapping 这个映射就是我们的模型文件,一般 ORM 框架都用 XML 格式来映射 实体Entity+属性数据库表,列</p>
+<p>托管对象(entity) —既不是单纯的 内存对象,也不是数据库中的具体的数据,它介于这两个状态之间的,我们叫他游离态的数据</p>
+<p>CoreData 不能执行 SQL 语句 取而代之,操作的是对象, FMDB SQLite 可以直接执行 SQL 语句</p>
+<p><strong>2.CoreData 的使用</strong><br>1&gt;直接创建项目工程文件, 勾选 Use Core Data 选项, 此时会自动生成对应的文件, 以及一些必要的代码<br><img src="http://img.blog.csdn.net/20161013101536229" alt="这里写图片描述"></p>
+<p>项目创建好之后, 我们发现多了一个 __CoreData.xcdatamodeld 文件, 以及 AppDelegate 文件中多了一些代码<br><img src="http://img.blog.csdn.net/20161013102320484" alt="这里写图片描述"></p>
+<p>接下来添加实体<br><img src="http://img.blog.csdn.net/20161013102705124" alt="这里写图片描述"></p>
+<p>生成模型文件<br><img src="http://img.blog.csdn.net/20161013102839843" alt="这里写图片描述"></p>
+<p>勾选 CoreData 文件<br><img src="http://img.blog.csdn.net/20161013102928375" alt="这里写图片描述"></p>
+<p>勾选实体<br><img src="http://img.blog.csdn.net/20161013102943884" alt="这里写图片描述"></p>
+<p>创建好之后, 会生成这些模型文件<br><img src="http://img.blog.csdn.net/20161013103028275" alt="这里写图片描述"></p>
+<p>在控制器中, 存数据和写数据的代码:</p>
+<p>存数据:</p>
+<p>// 为了获取 appDelegate 中的上下文属性<br>AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];</p>
+<p>Person *person = [NSEntityDescription insertNewObjectForEntityForName:@”Person” inManagedObjectContext:appDelegate.managedObjectContext];</p>
+<p>person.name = @”lcn”;<br>person.age = @(20);</p>
+<p>// 保存数据<br>[appDelegate.managedObjectContext save:nil];</p>
+<p>取数据</p>
+<p>AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];</p>
+<p>// NSFetchRequest 请求对象<br>NSFetchRequest *request = [[NSFetchRequest alloc] init];</p>
+<p>// 实体<br>NSEntityDescription *entity = [NSEntityDescription entityForName:@”Person” inManagedObjectContext:appDelegate.managedObjectContext];<br>request.entity = entity;</p>
+<p>// 谓词<br>NSPredicate *predicate = [NSPredicate predicateWithFormat:@”name = %@”, @”lcn”];<br>request.predicate = predicate;</p>
+<p>// 排序<br>NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@”age” ascending:YES];<br>request.sortDescriptors = @[sort];</p>
+<p>NSArray *tempArr = [appDelegate.managedObjectContext executeFetchRequest:request error:nil];</p>
+<p>[tempArr enumerateObjectsUsingBlock:^(Person <em>  _Nonnull obj, NSUInteger idx, BOOL </em> _Nonnull stop) {</p>
+<p>NSLog(@”%@: %@”, obj.name, obj.age);<br>}];</p>
+<p>2&gt;但是在真正开发中, 我们可能一开始并不能确定我们是否要使用 CoreData, 当我们在后续中想要使用 CoreData 时, 很显然我们不能重新搭建一个项目, 所以就需要我们自己来编写对应的代码</p>
+<p>创建一个工具类, 以及实体文件<br><img src="http://img.blog.csdn.net/20161013162124019" alt="这里写图片描述"></p>
+<p>LCNCoreDataManager.h 中的代码</p>
+<p>/**</p>
+<ul>
+<li>单例<br>*/</li>
+</ul>
+<ul>
+<li>(instancetype)shareManager;</li>
+</ul>
+<p>/**</p>
+<ul>
+<li>管理对象的上下文<br><em>/<br>@property (nonatomic,strong) NSManagedObjectContext </em>context;</li>
+</ul>
+<p>LCNCoreDataManager.m 中的代码</p>
+<ul>
+<li>(instancetype)shareManager {</li>
+</ul>
+<p>static id _instance;</p>
+<p>static dispatch_once_t once;<br>dispatch_once(&amp;once, ^{</p>
+<p>_instance = [[self alloc] init];</p>
+<p>});</p>
+<p>return _instance;<br>}</p>
+<p>#pragma mark - 上下文的懒加载</p>
+<ul>
+<li>(NSManagedObjectContext *)context {<br>if (!_context) {</li>
+</ul>
+<p>// 加载模型文件  momd 为简写<br>NSURL *url = [[NSBundle mainBundle] URLForResource:@”Dog” withExtension:@”momd”];</p>
+<p>// 创建模型文件<br>NSManagedObjectModel *model = [[NSManagedObjectModel alloc] initWithContentsOfURL:url];</p>
+<p>// 创建协调器<br>NSPersistentStoreCoordinator *coordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:model];</p>
+<p>// 创建上下文<br>_context = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];</p>
+<p>// 把协调器传递给上下文<br>[_context setPersistentStoreCoordinator:coordinator];</p>
+<p>// 数据库地址(要把文件名也拼接上)<br>NSString <em>string = [NSSearchPathForDirectoriesInDomains(NSDocumentationDirectory, NSUserDomainMask, YES).lastObject stringByAppendingPathComponent:@”Dog.db”];<br>NSURL </em>pathUrl = [NSURL URLWithString:string];</p>
+<p>[coordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:pathUrl options:nil error:nil];<br>}<br>return _context;<br>}</p>
+<p>然后接下来的过程就和上面一样了, 注意获取上下文的时候是通过我们自己的工具类获取, 上面的是通过 AppDelegate 获取</p>
+
+  </section>
+
+</article>
+
+
+<section class="post-comments">
+  <!-- 多说评论框 start -->
+  <div class="ds-thread" data-thread-key="http://yoursite.com/2016/09/15/CoreData/" data-title="CoreData" data-url="http://yoursite.com/2016/09/15/CoreData/"></div>
+  <!-- 多说评论框 end -->
+  <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+  <script type="text/javascript">
+  var duoshuoQuery = {short_name:"liangcn"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+  </script>
+<!-- 多说公共JS代码 end -->
+</section>
+
+
+
+            <footer class="footer">
+    <span class="footer__copyright">
+        基于 <a href="http://hexo.io">Hexo</a> 搭建，感谢 <a href="https://pages.github.com/">GitHub Pages</a> 提供免费的托管服务
+    </span>
+    <span class="footer__copyright">
+        &copy; 2016 - 本站由 <a href="/">@Liang Chuan Nan</a> 创建,
+        使用<a href="https://github.com/lenbo-ma/hexo-theme-vno">hexo-theme-vno</a>主题,
+        修改自<a href="http://github.com/onevcat/vno" target="_blank">Vno</a>
+    </span>
+</footer>
+
+        </div>
+    </div>
+
+    <script src="http://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+
+    
+</body>
+</html>
