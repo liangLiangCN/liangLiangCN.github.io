@@ -137,22 +137,56 @@
 
   <section class="post">
     <p>前几天看到一个算法题：有两个数组A，B，大小都为 n，数组元素的值任意，且无序，要求通过交换A和B中的元素，使得数组A中元素的和与数组B中元素的和之间的差最小。<br>我的想法就是：将两个数组合并为一个数组，并排序，然后再平分，每次取一头一尾两个，轮流放到A、B两个数组中。下面我把我的代码放上来</p>
-<p>// 定义两个数组<br>NSMutableArray <em>array1 = [NSMutableArray arrayWithObjects:@5, @11, @32, @74, @36, nil];<br>NSMutableArray </em>array2 = [NSMutableArray arrayWithObjects:@26, @17, @8, @57, @10, nil];</p>
-<p>// 定义一个BOOL值, 用来判断数组的奇偶, 如果为偶数,则为YES, 反之, 为NO<br>BOOL isEvenNumber = (array1.count % 2) ? NO : YES;</p>
-<p>// 把两个数组整合到一起<br>NSMutableArray *array = [NSMutableArray arrayWithArray:array1];<br>[array addObjectsFromArray:array2];</p>
-<p>// 对数组进行排序(这个方法返回的结果是从小到大)<br>NSArray *sortArray = [array sortedArrayUsingSelector:@selector(compare:)];</p>
-<p>// 清空两个数组<br>[array1 removeAllObjects];<br>[array2 removeAllObjects];</p>
-<p>分发数组元素</p>
-<p>if (isEvenNumber) {<br>// 偶数<br>for (NSInteger i = 0; i&lt;(sortArray.count / 2); i++) {</p>
-<p>[array1 addObject:sortArray[i]];<br>[array1 addObject:sortArray[sortArray.count - i -1]];</p>
-<p>[array2 addObject:sortArray[i + 1]];<br>[array2 addObject:sortArray[sortArray.count - i - 2]];</p>
-<p>i++;<br>}</p>
-<p>} else {<br>// 奇数<br>[array1 addObject:sortArray[sortArray.count / 2 - 1]];<br>[array2 addObject:sortArray[sortArray.count / 2]];</p>
-<p>for (NSInteger i = 0; i&lt;sortArray.count / 2 - 1; i++) {</p>
-<p>[array1 addObject:sortArray[i]];<br>[array1 addObject:sortArray[sortArray.count - i - 1]];</p>
-<p>[array2 addObject:sortArray[i + 1]];<br>[array2 addObject:sortArray[sortArray.count - i - 2]];</p>
-<p>i++;<br>}<br>}</p>
-<p>if 语句里面的内容也可以抽一个方法， 就不再演示了。</p>
+<pre><code>// 定义两个数组
+NSMutableArray *array1 = [NSMutableArray arrayWithObjects:@5, @11, @32, @74, @36,   nil];
+NSMutableArray *array2 = [NSMutableArray arrayWithObjects:@26, @17, @8, @57, @10, nil];
+
+// 定义一个BOOL值, 用来判断数组的奇偶, 如果为偶数,则为YES, 反之, 为NO
+BOOL isEvenNumber = (array1.count % 2) ? NO : YES;
+
+// 把两个数组整合到一起
+NSMutableArray *array = [NSMutableArray arrayWithArray:array1];
+[array addObjectsFromArray:array2];
+
+// 对数组进行排序(这个方法返回的结果是从小到大)
+NSArray *sortArray = [array sortedArrayUsingSelector:@selector(compare:)];
+
+// 清空两个数组
+[array1 removeAllObjects];
+[array2 removeAllObjects];
+
+分发数组元素
+
+if (isEvenNumber) {
+    // 偶数
+    for (NSInteger i = 0; i&lt;(sortArray.count / 2); i++) {
+
+        [array1 addObject:sortArray[i]];
+        [array1 addObject:sortArray[sortArray.count - i -1]];
+
+        [array2 addObject:sortArray[i + 1]];
+        [array2 addObject:sortArray[sortArray.count - i - 2]];
+
+        i++;
+    }
+
+} else {
+    // 奇数
+    [array1 addObject:sortArray[sortArray.count / 2 - 1]];
+    [array2 addObject:sortArray[sortArray.count / 2]];
+
+    for (NSInteger i = 0; i&lt;sortArray.count / 2 - 1; i++) {
+
+        [array1 addObject:sortArray[i]];
+        [array1 addObject:sortArray[sortArray.count - i - 1]];
+
+        [array2 addObject:sortArray[i + 1]];
+        [array2 addObject:sortArray[sortArray.count - i - 2]];
+
+        i++;
+    }
+}
+</code></pre><p>if 语句里面的内容也可以抽一个方法， 就不再演示了。</p>
 
   </section>
 

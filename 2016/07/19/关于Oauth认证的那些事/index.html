@@ -154,26 +154,58 @@
 <p>把拼接好的URL给你的webView, 就可以在app中进行访问了</p>
 <p>5.截取code<br>当我们看到回调页面的时候, 代表我们上一步成功了. 此时URL里面会含有code, 我们需要做的就是把code截取出来</p>
 <p>给webView设置一个代理, 实现它的代理方法</p>
-<p>func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -&gt; Bool {<br>print(request.URL) </p>
-<p>return true<br>}<br>当我们进行网络加载的时候, 都会调用这个方法, 打印URL, 当授权成功的时候, 打印的URL就会看到里面有一个code, 我们要做的就是截取它</p>
+<pre><code>func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -&gt; Bool {        
+    print(request.URL) 
+
+    return true
+}
+</code></pre><p>当我们进行网络加载的时候, 都会调用这个方法, 打印URL, 当授权成功的时候, 打印的URL就会看到里面有一个code, 我们要做的就是截取它</p>
 <p>要截取code, 首先需要找到code所在的URL, 经过观察不难发现, 含有code的URL, 前面都含有我们的回调网址, 所以我们可以经过判断来筛取我们所需要的URL</p>
-<p>if let urlString = request.URL?.absoluteString {</p>
-<p>if urlString.hasPrefix(AppRedirectURL) {</p>
-<p>print(“这个网址有code”)<br>print(urlString)</p>
-<p>}<br>}</p>
-<p>此时打印出来的URL能很明显的看到code. 你可以自己手动截取, 但是swift中提供了一个query属性, 它能直接帮我们获取到等号后面的内容</p>
-<p>if let query = request.URL?.query {<br>let startIndex = “code=”.endIndex<br>let code = query.substringFromIndex(startIndex)</p>
-<p>print(code)<br>}</p>
-<p>此时code就截取成功了, 完整的代码如下</p>
-<p>func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -&gt; Bool {</p>
-<p>if let urlString = request.URL?.absoluteString {</p>
-<p>if urlString.hasPrefix(AppRedirectURL) {</p>
-<p>if let query = request.URL?.query {</p>
-<p>let startIndex = “code=”.endIndex<br>let code = query.substringFromIndex(startIndex)</p>
-<p>print(code)<br>}<br>}<br>}</p>
-<p>6.获取Token</p>
-<p>func loadToken(code: String) {<br>let parameter = [“client_id”: AppKey, “client_secret”: AppSecret, “grant_type”: “authorization_code”, “code”: code, “redirect_uri”: AppRedirectURL]</p>
-<p>LCNHTTPClient.shareInstance.POST(“<a href="https://api.weibo.com/oauth2/access_token" target="_blank" rel="external">https://api.weibo.com/oauth2/access_token</a>“, parameters: parameter, progress: nil, success: { (<em>, json) -&gt; Void in<br>// 成功的回调<br>print(json)<br>}) { (</em>, error) -&gt; Void in<br>// 失败的回调<br>print(error)<br>}<br>}<br>第一句是根据API文档拼接的参数, 我的value值大部分都是在外界定义好的<br>第二句是调用的管理者发送的AFN请求</p>
+<pre><code>if let urlString = request.URL?.absoluteString {
+
+if urlString.hasPrefix(AppRedirectURL) {
+
+    print(&quot;这个网址有code&quot;)
+    print(urlString)
+
+    }
+}
+</code></pre><p>此时打印出来的URL能很明显的看到code. 你可以自己手动截取, 但是swift中提供了一个query属性, 它能直接帮我们获取到等号后面的内容</p>
+<pre><code>if let query = request.URL?.query {                    
+    let startIndex = &quot;code=&quot;.endIndex
+    let code = query.substringFromIndex(startIndex)
+
+    print(code)
+}
+</code></pre><p>此时code就截取成功了, 完整的代码如下</p>
+<pre><code>func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -&gt; Bool {
+
+if let urlString = request.URL?.absoluteString {
+
+    if urlString.hasPrefix(AppRedirectURL) {
+
+        if let query = request.URL?.query {
+
+            let startIndex = &quot;code=&quot;.endIndex
+            let code = query.substringFromIndex(startIndex)
+
+            print(code)
+        } 
+    }
+}
+</code></pre><p>6.获取Token</p>
+<pre><code>func loadToken(code: String) {
+    let parameter = [&quot;client_id&quot;: AppKey, &quot;client_secret&quot;: AppSecret, &quot;grant_type&quot;: &quot;authorization_code&quot;, &quot;code&quot;: code, &quot;redirect_uri&quot;: AppRedirectURL]
+
+    LCNHTTPClient.shareInstance.POST(&quot;https://api.weibo.com/oauth2/access_token&quot;, parameters: parameter, progress: nil, success: { (_, json) -&gt; Void in
+    // 成功的回调            
+    print(json)
+}) { (_, error) -&gt; Void in 
+    // 失败的回调
+    print(error)
+    }
+}
+</code></pre><p>第一句是根据API文档拼接的参数, 我的value值大部分都是在外界定义好的<br>第二句是调用的管理者发送的AFN请求</p>
 <p>如果能够成功的回调, 获取到的json就是从网络上获取的数据, 打印出来能看到一些参数. </p>
 <p>最后再把json字典转模型, 然后得到的Token, 就可以根据Token去获取信息了</p>
 <p>这就完成了Oauth的认证过程</p>
