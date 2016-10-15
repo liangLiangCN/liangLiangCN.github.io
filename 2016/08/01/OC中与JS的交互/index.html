@@ -144,32 +144,42 @@
 <p>1.首先导入框架</p>
 <p>#import <webkit webkit.h=""></webkit></p>
 <p>2.加载页面, 在 viewDidLoad中写下列代码</p>
-<p>NSURL *url = [NSURL URLWithString:@”<a href="http://t.dianping.com/deal/8820236" target="_blank" rel="external">http://t.dianping.com/deal/8820236</a>“];</p>
-<p>NSURLRequest <em>request = [NSURLRequest requestWithURL:url];<br>WKWebView </em>webView = [[WKWebView alloc] initWithFrame:self.view.bounds];</p>
-<p>[webView loadRequest:request];</p>
-<p>[self.view addSubview:webView];</p>
-<p>此时可以运行看看页面是否加载成功</p>
+<pre><code>NSURL *url = [NSURL URLWithString:@&quot;http://t.dianping.com/deal/8820236&quot;];
+
+NSURLRequest *request = [NSURLRequest requestWithURL:url];
+WKWebView *webView = [[WKWebView alloc] initWithFrame:self.view.bounds];
+
+[webView loadRequest:request];
+
+[self.view addSubview:webView];
+</code></pre><p>此时可以运行看看页面是否加载成功</p>
 <p>3.我们需要在页面即将加载完毕的时候, 删除我们不想要的元素, 所以需要我们监听 webView 的加载情况</p>
-<p>// 设置代理, 遵守协议 WKNavigationDelegate<br>webView.navigationDelegate = self;</p>
-<p>webView, 有两个协议, 其中 navigationDelegate 用来追踪加载过程, 即页面开始加载、加载完成、加载失败; UIDelegate 处理web界面的三种提示框(警告框、确认框、输入框)</p>
+<pre><code>// 设置代理, 遵守协议 WKNavigationDelegate
+webView.navigationDelegate = self;
+</code></pre><p>webView, 有两个协议, 其中 navigationDelegate 用来追踪加载过程, 即页面开始加载、加载完成、加载失败; UIDelegate 处理web界面的三种提示框(警告框、确认框、输入框)</p>
 <p>实现代理方法</p>
-<ul>
-<li>(void)webView:(WKWebView <em>)webView didFinishNavigation:(WKNavigation </em>)navigation {<br>}</li>
-</ul>
-<p>我们在这个方法中, 编写与JS交互相关的代码</p>
+<pre><code>- (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
+}
+</code></pre><p>我们在这个方法中, 编写与JS交互相关的代码</p>
 <p>这里需要补充一些关于JS交互的知识:<br>1&gt;我们使用JS可以修改网页上元素的值, 也可以删掉任意我们想要删掉的元素, 但是做这些事情的前提是, 我们要找到它, 才能对它做一系列的操作<br>2&gt;想要找到某一个元素, 关键点就是通过decument 调用它的方法来查询对应的元素<br>3&gt;我们可以根据 id 来找, 也可以通过标签名, 还可以通过class名<br><img src="http://img.blog.csdn.net/20160731221418489" alt="这里写图片描述"><br>4&gt;找到该元素之后, 通过parentNode 找到它的父控件, 然后通过它的父控件删除它</p>
 <p>打开我们的浏览器, 调到开发者工具界面(我用的谷歌), 调到手机版<br><img src="http://img.blog.csdn.net/20160731221901073" alt="这里写图片描述"></p>
 <p>body里面就是元素构成, 当我们指向里面的某一行时, 对应的元素会发光<br><img src="http://img.blog.csdn.net/20160731222051255" alt="这里写图片描述"></p>
 <p>此时,如果我们直接按Delete 键删掉这一行, 我们就会发现上面的导航栏不见了, 所有我们可以肯定, 这个header 就是我们要删掉的东西<br>因为整个页面只有一个header, 所以我们直接通过header 来找到我们需要的元素, 通过代码查找的方式如下图(这是根据标签名的方式):<br><img src="http://img.blog.csdn.net/20160731222431351" alt="这里写图片描述"></p>
 <p><img src="http://img.blog.csdn.net/20160731223205478" alt="这里写图片描述"></p>
-<p>var headerElement = document.getElementsByTagName(‘header’)[0];<br>headerElement.parentNode.removeChild(headerElement);</p>
-<p>定义一个变量, 接收这个元素, 通过parentNode 找到它的父级元素, 然后把它自己删掉, 通过上面的代码, 我们就能把导航栏删掉, 所以这个就是我们需要的 JavaScript 语句</p>
+<pre><code>var headerElement = document.getElementsByTagName(&apos;header&apos;)[0];
+headerElement.parentNode.removeChild(headerElement);
+</code></pre><p>定义一个变量, 接收这个元素, 通过parentNode 找到它的父级元素, 然后把它自己删掉, 通过上面的代码, 我们就能把导航栏删掉, 所以这个就是我们需要的 JavaScript 语句</p>
 <p>再来看 webView 的代理方法<br><img src="http://img.blog.csdn.net/20160731224029562" alt="这里写图片描述"></p>
 <p>此时运行我们的程序, 就会发现导航栏已经被删掉了~</p>
 <p>同理, 我们可删除掉其他我们不想要的元素</p>
-<p>// 删除底部view<br>NSString *deleteFooterElement = @”var footerElement = document.getElementsByTagName(‘footer’)[0]; footerElement.parentNode.removeChild(footerElement);”;<br>[webView evaluateJavaScript:deleteFooterElement completionHandler:nil];</p>
-<p>// 删除底部的button<br>NSString *deleteButtonElement = @”var button = document.getElementsByClassName(‘footer-btn-fix’)[0]; button.parentNode.removeChild(button);”;<br>[webView evaluateJavaScript:deleteButtonElement completionHandler:nil];</p>
-<p>其中 JavaScript 中的变量名, 没有要求, 可以随便定义<br>此时再运行我们的程序, 就会发现我们想要删掉的已经都删掉了</p>
+<pre><code>// 删除底部view
+NSString *deleteFooterElement = @&quot;var footerElement = document.getElementsByTagName(&apos;footer&apos;)[0]; footerElement.parentNode.removeChild(footerElement);&quot;;
+[webView evaluateJavaScript:deleteFooterElement completionHandler:nil];
+
+// 删除底部的button
+NSString *deleteButtonElement = @&quot;var button = document.getElementsByClassName(&apos;footer-btn-fix&apos;)[0]; button.parentNode.removeChild(button);&quot;;
+[webView evaluateJavaScript:deleteButtonElement completionHandler:nil];
+</code></pre><p>其中 JavaScript 中的变量名, 没有要求, 可以随便定义<br>此时再运行我们的程序, 就会发现我们想要删掉的已经都删掉了</p>
 
   </section>
 

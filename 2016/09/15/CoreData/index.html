@@ -195,50 +195,47 @@ NSLog(@&quot;%@: %@&quot;, obj.name, obj.age);
 *  管理对象的上下文
 */
 @property (nonatomic,strong) NSManagedObjectContext *context;
+</code></pre><p>LCNCoreDataManager.m 中的代码</p>
+<pre><code>+ (instancetype)shareManager {
 
+    static id _instance;
 
-LCNCoreDataManager.m 中的代码
+    static dispatch_once_t once;
+    dispatch_once(&amp;once, ^{
 
-+ (instancetype)shareManager {
+        _instance = [[self alloc] init];
 
-static id _instance;
+    });
 
-static dispatch_once_t once;
-dispatch_once(&amp;once, ^{
-
-_instance = [[self alloc] init];
-
-});
-
-return _instance;
+    return _instance;
 }
 
 #pragma mark - 上下文的懒加载
 - (NSManagedObjectContext *)context {
-if (!_context) {
+    if (!_context) {
 
-// 加载模型文件  momd 为简写
-NSURL *url = [[NSBundle mainBundle] URLForResource:@&quot;Dog&quot; withExtension:@&quot;momd&quot;];
+        // 加载模型文件  momd 为简写
+        NSURL *url = [[NSBundle mainBundle] URLForResource:@&quot;Dog&quot; withExtension:@&quot;momd&quot;];
 
-// 创建模型文件
-NSManagedObjectModel *model = [[NSManagedObjectModel alloc] initWithContentsOfURL:url];
+        // 创建模型文件
+        NSManagedObjectModel *model = [[NSManagedObjectModel alloc] initWithContentsOfURL:url];
 
-// 创建协调器
-NSPersistentStoreCoordinator *coordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:model];
+        // 创建协调器
+        NSPersistentStoreCoordinator *coordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:model];
 
-// 创建上下文
-_context = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
+        // 创建上下文
+        _context = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
 
-// 把协调器传递给上下文
-[_context setPersistentStoreCoordinator:coordinator];
+        // 把协调器传递给上下文
+        [_context setPersistentStoreCoordinator:coordinator];
 
-// 数据库地址(要把文件名也拼接上)
-NSString *string = [NSSearchPathForDirectoriesInDomains(NSDocumentationDirectory, NSUserDomainMask, YES).lastObject stringByAppendingPathComponent:@&quot;Dog.db&quot;];
-NSURL *pathUrl = [NSURL URLWithString:string];
+        // 数据库地址(要把文件名也拼接上)
+        NSString *string = [NSSearchPathForDirectoriesInDomains(NSDocumentationDirectory, NSUserDomainMask, YES).lastObject stringByAppendingPathComponent:@&quot;Dog.db&quot;];
+        NSURL *pathUrl = [NSURL URLWithString:string];
 
-[coordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:pathUrl options:nil error:nil];
-}
-return _context;
+        [coordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:pathUrl options:nil error:nil];
+        }
+    return _context;
 }
 </code></pre><p>然后接下来的过程就和上面一样了, 注意获取上下文的时候是通过我们自己的工具类获取, 上面的是通过 AppDelegate 获取</p>
 
