@@ -142,8 +142,8 @@
 <p><img src="http://img.blog.csdn.net/20160731204317228" alt="这里写图片描述"></p>
 <p>因为UIWebView 太耗费性能, 所以采用WKWebView</p>
 <p>1.首先导入框架</p>
-<p>#import <webkit webkit.h=""></webkit></p>
-<p>2.加载页面, 在 viewDidLoad中写下列代码</p>
+<pre><code>#import &lt;WebKit/WebKit.h&gt;
+</code></pre><p>2.加载页面, 在 viewDidLoad中写下列代码</p>
 <pre><code>NSURL *url = [NSURL URLWithString:@&quot;http://t.dianping.com/deal/8820236&quot;];
 
 NSURLRequest *request = [NSURLRequest requestWithURL:url];
