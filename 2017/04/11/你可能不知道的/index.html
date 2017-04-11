@@ -136,13 +136,10 @@
   </header>
 
   <section class="post">
-    <pre><code>###1.NSCache
-</code></pre><p>1&gt;建议做缓存的时候采用 NSCache, 而不是 NSDictionary.<br>2&gt;大多数情况下, NSCache 的用法与 NSDictionary 一样, 可以调用 objectForKey:, setObject:forKey:, removeObjectForKey:<br>3&gt;开发者可以在任何线程上不加锁的修改NSCache</p>
-<pre><code>###2.NSURLComponents
-</code></pre><p>它可以很方便的把 URL 分成几个部分, 比如:</p>
+    <h3 id="1-NSCache"><a href="#1-NSCache" class="headerlink" title="1.NSCache"></a>1.NSCache</h3><p>1&gt;建议做缓存的时候采用 NSCache, 而不是 NSDictionary.<br>2&gt;大多数情况下, NSCache 的用法与 NSDictionary 一样, 可以调用 objectForKey:, setObject:forKey:, removeObjectForKey:<br>3&gt;开发者可以在任何线程上不加锁的修改NSCache</p>
+<h3 id="2-NSURLComponents"><a href="#2-NSURLComponents" class="headerlink" title="2.NSURLComponents"></a>2.NSURLComponents</h3><p>它可以很方便的把 URL 分成几个部分, 比如:</p>
 <p>NSString <em>URLString = @”<a href="http://172.0.0.1:8888/api/ios?name=lcn" target="_blank" rel="external">http://172.0.0.1:8888/api/ios?name=lcn</a>“<br>NSURLComponents </em>components = [NSURLComponents componentsWithString:URLString];<br>NSString *host = components.host;<br>NSLog(@”%@”, host);<br>也可以用它创建或修改 URL</p>
-<pre><code>###3.CFStringTransform
-</code></pre><p>它可以处理非拉丁书写系统(例如:中文)和拉丁字母之间的转换:</p>
+<h3 id="3-CFStringTransform"><a href="#3-CFStringTransform" class="headerlink" title="3.CFStringTransform"></a>3.CFStringTransform</h3><p>它可以处理非拉丁书写系统(例如:中文)和拉丁字母之间的转换:</p>
 <p>NSMutableString *source = @”点通宝”.mutableCopy;<br>// 将中文转换成带声调的拼音<br>CFStringTransform((<strong>bridge CFMutableStringRef)source, NULL, kCFStringTransformMandarinLatin, NO);<br>NSLog(@”%@”, source);<br>// 将拼音的声调去掉<br>CFStringTransform((</strong>bridge CFMutableStringRef)source, NULL, kCFStringTransformStripDiacritics, NO);<br>NSLog(@”%@”, source);</p>
 <p><img src="http://img.blog.csdn.net/20170309110129449?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbGlhbmdjaHVhbm5hbg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
 <p>另: 它不能处理日文(因为日文中可能出现汉字)</p>
