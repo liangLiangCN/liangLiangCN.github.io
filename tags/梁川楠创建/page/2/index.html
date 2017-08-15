@@ -130,24 +130,32 @@
   
     
     <li>
-      <h2 class="post-list__post-title post-title"><a href="/2017/08/15/AVAudioPlayer/" title="link to post.title">AVAudioPlayer</a></h2>
+      <h2 class="post-list__post-title post-title"><a href="/2016/07/19/用-property声明的NSString-NSArray-NSDictionary-为什么要用copy/" title="link to post.title">用@property声明的NSString, NSArray, NSDictionary 为什么要用copy</a></h2>
       <p class="excerpt">
     
-      AVAudioPlayer 在 Mac 和 iOS 系统经常被作为实现音频播放的最佳选择。1.AVAudioPlayer的创建有两种方法可创建一个 AVAudioPlayer，使用包含要播放音频的内存版本的 NSData，或者本地音频文件的 NSURL。如果基于 iOS 系统，URL 必须在应用程序沙盒之内或者该 URL 一定是用户 iPod 库中的一个元素。
-@property(nonatomic, strong) AVAudioPlayer *player;
+      首先呢, 给大家看一个例子
 
-NSURL *fileURl 
+在上图中, 我们用的 strong 修饰的字符串, 当我们把一个可变的字符串赋值给它之后, 发生了一些, 我们并不想要的结果. 这个结果是由于多态的特性导致的. 父类指针指向了子类的对象, 当这个子类是可变的对象, 恰好又发生了修改的时候, 就影响到了父类的属性, 所以出现了我们看到的结果
+而如果我们用copy来修饰字符串的话, 就不会有这些问题
+copy 字面意思就是 “复制”, “拷贝”, 它就是一个产生副本的过程.它最大的特点就是: 源文件和副本文件不会相互影
     &hellip;
       </p>
-      <div class="post-list__meta"><time datetime="2017-08-15T08:35:55.000Z" class="post-list__meta--date date">2017-08-15</time> &#8226; <span class="post-list__meta--tags tags">于&nbsp;
+      <div class="post-list__meta"><time datetime="2016-07-19T02:16:08.000Z" class="post-list__meta--date date">2016-07-19</time> &#8226; <span class="post-list__meta--tags tags">于&nbsp;
   <a class="tag-link" href="/tags/梁川楠创建/">梁川楠创建</a>
-</span><a class="btn-border-small" href="/2017/08/15/AVAudioPlayer/">继续阅读</a></div>
+</span><a class="btn-border-small" href="/2016/07/19/用-property声明的NSString-NSArray-NSDictionary-为什么要用copy/">继续阅读</a></div>
       <hr class="post-list__divider" />
     </li>
   
     
   </ol>
 
+
+  <nav class="pagination" role="navigation">
+    
+      <a class="older-posts pagination__older btn btn-small btn-tertiary" href="/#blog">Prev</a>
+    
+    
+  </nav>
 
 
 </div>
