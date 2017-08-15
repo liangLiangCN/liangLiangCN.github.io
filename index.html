@@ -133,7 +133,10 @@
       <h2 class="post-list__post-title post-title"><a href="/2017/08/15/AVAudioPlayer/" title="link to post.title">AVAudioPlayer</a></h2>
       <p class="excerpt">
     
-      
+      AVAudioPlayer 在 Mac 和 iOS 系统经常被作为实现音频播放的最佳选择。1.AVAudioPlayer的创建有两种方法可创建一个 AVAudioPlayer，使用包含要播放音频的内存版本的 NSData，或者本地音频文件的 NSURL。如果基于 iOS 系统，URL 必须在应用程序沙盒之内或者该 URL 一定是用户 iPod 库中的一个元素。
+@property(nonatomic, strong) AVAudioPlayer *player;
+
+NSURL *fileURl 
     &hellip;
       </p>
       <div class="post-list__meta"><time datetime="2017-08-15T08:57:01.000Z" class="post-list__meta--date date">2017-08-15</time> &#8226; <span class="post-list__meta--tags tags">于&nbsp;
