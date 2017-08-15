@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    
+    <title>AVAudioPlayer | 梁梁</title>
+    <meta name="renderer" content="webkit">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <meta name="description" content="iOS">
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="AVAudioPlayer | 梁梁">
+    <meta name="twitter:description" content="iOS">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="AVAudioPlayer | 梁梁">
+    <meta property="og:description" content="iOS">
+
+    
+    <meta name="author" content="梁梁">
+    
+    <link rel="stylesheet" href="/css/vno.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
+
+    
+    <link rel="icon" href="/images/logo.con">
+    
+
+    <meta name="generator" content="hexo"/>
+    
+
+    <link rel="canonical" href="https://liangliangcn.github.io/archives/2017/08/15/AVAudioPlayer/"/>
+
+    
+</head>
+
+<body class="home-template">
+
+    <span class="mobile btn-mobile-menu">
+        <i class="fa fa-list btn-mobile-menu__icon"></i>
+        <i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+<header class="panel-cover panel-cover--collapsed" style="background-image: url(/images/background-cover.jpg)">
+  <div class="panel-main">
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/" title="前往 梁梁 的主页"><img src="/images/a.png" width="80" alt="梁梁 logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage for 梁梁">梁梁</a></h1>
+        
+        <span class="panel-cover__subtitle panel-subtitle">多一点分享，多一点感动</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">iOS</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+
+        <div class="navigation-wrapper">
+          <div>
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+              <li class="navigation__item"><a href="/" title="访问博客" class="blog-button">主页</a></li>
+            
+              <li class="navigation__item"><a href="/archives">文章</a></li>
+            
+              <li class="navigation__item"><a href="/aboutme">关于我</a></li>
+            
+            </ul>
+          </nav>
+          </div>
+          <div>
+          <nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  <!-- Weibo-->
+  
+
+  <!-- Github -->
+  
+  <li class="navigation__item">
+    <a href="https://github.com/liangLiangCN" title="查看我的GitHub主页" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+
+
+<!-- Stack Overflow -->
+        
+
+  <!-- Google Plus -->
+  
+
+<!-- Facebook -->
+
+  
+<!-- Twitter -->
+
+  
+
+
+
+  </ul>
+</nav>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay cover-blue"></div>
+  </div>
+</header>
+
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner">
+            <article class="post-container post-container--single">
+
+  <header class="post-header">
+    <div class="post-meta">
+      <time datetime="2017-08-15T08:35:55.000Z" class="post-list__meta--date date">2017-08-15</time> &#8226; <span class="post-meta__tags tags">于&nbsp;</span>
+    </div>
+    <h1 class="post-title">AVAudioPlayer</h1>
+  </header>
+
+  <section class="post">
+    <p>####AVAudioPlayer 在 Mac 和 iOS 系统经常被作为实现音频播放的最佳选择。</p>
+<p>####1.AVAudioPlayer的创建<br>有两种方法可创建一个 AVAudioPlayer，使用包含要播放音频的内存版本的 NSData，或者本地音频文件的 NSURL。如果基于 iOS 系统，URL 必须在应用程序沙盒之内或者该 URL 一定是用户 iPod 库中的一个元素。</p>
+<pre><code>@property(nonatomic, strong) AVAudioPlayer *player;
+
+NSURL *fileURl = [[NSBundle mainBundle] URLForResource:@&quot;lcn&quot; withExtension:@&quot;mp3&quot;];
+self.player = [[AVAudioPlayer alloc] initWithContentsOfURL:fileURl error:nil];
+// 取得需要的音频硬件并预加载 Audio Queue 的缓冲区， 降低调用 play 方法和听到声音输出之间的延时
+[self.player prepareToPlay];
+</code></pre><p>####2.对播放进行控制</p>
+<pre><code>// 开始播放
+[self.player play];
+// 暂停播放
+[self.player pause];
+// 停止播放，对用户来说效果是相同的，不同在于调用 stop 方法时，会撤销调用 prepareToPlay 时所做的设置
+[self.player stop];
+</code></pre><p>其他方法<br>1&gt;修改播放器的音量：播放器的音量独立于系统的音量，我们可以通过对播放器音量的处理实现很多效果，比如声音的渐隐效果。音量或播放增益定义为0.0(静音)到1.0(最大音量)之间的浮点值。<br>2&gt;修改播放器的 pan 值：允许使用立体声播放声音：播放器的 pan 值由一个浮点数表示，范围从-1.0(极左)到1.0(极右)。默认值为0.0(居中)<br>3&gt;调整播放率：iOS5之后允许用户在不改变音调的情况下调整播放率，范围从0.5(半速)到2.0(2倍速)。<br>4&gt;通过设置 numberOfLoops 属性实现音频无缝循环：给这个属性设置一个大于0的数，可以实现播放器 n 次循环播放。设置 -1 会无限循环。</p>
+<p>####3.配置音频会话<br>在 AppDelegate.m 中</p>
+<pre><code>- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    // 获取会话
+    AVAudioSession *session = [AVAudioSession sharedInstance];
+
+    NSError *error;
+    // 指定 AVAudioSessionCategoryPlayback 分类
+    if (![session setCategory:AVAudioSessionCategoryPlayback error:&amp;error]) {
+        // 处理错误...
+        NSLog(@&quot;%@&quot;, error.localizedDescription);
+    }
+    if (![session setActive:YES error:&amp;error]) {
+        // 处理错误...
+        NSLog(@&quot;%@&quot;, error.localizedDescription);
+    }
+
+    return YES;
+}
+</code></pre><p>另，在 info.plist 中配置 Required background modes 数组，添加 App plays audio or streams audio/video using AirPlay 选项<br><img src="http://img.blog.csdn.net/20170814173128049?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbGlhbmdjaHVhbm5hbg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p>此时，当切换手机侧面的”铃声/静音“开关，或点击设备的 Lock 按钮后，player 会继续播放音频，不会再中断。</p>
+<p>####4.中断事件<br>当中断事件发生时，播放中的音频会慢慢消失和暂停，但是当中断事件结束后，音频播放不会恢复。</p>
+<pre><code>- (void)viewDidLoad {
+    [super viewDidLoad];
+    // 注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleInterruption:) name:AVAudioSessionInterruptionNotification object:[AVAudioSession sharedInstance]];
+}
+- (void)dealloc {
+    // 移除通知
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+- (void)handleInterruption:(NSNotification *)notification {
+    NSDictionary *info = notification.userInfo;
+    AVAudioSessionInterruptionType type = [info[AVAudioSessionInterruptionTypeKey] unsignedIntegerValue];
+    if (type == AVAudioSessionInterruptionTypeBegan) {
+        // AVAudioSessionInterruptionTypeBegan
+        // 发生中断事件，暂停播放..
+    } else {
+        // AVAudioSessionInterruptionTypeEnded
+        // 中断事件结束，恢复播放
+    }
+}
+</code></pre><p>5.对线路改变的响应<br>在 iOS 设备上添加或移除音频输入、输出线路时，会发生线路改变。音频播放之后，用户插入耳机，音频输出线路变为耳机插孔并继续播放；用户断开耳机连接，音频线路回到设备的内置扬声器，音频继续播放，按照苹果公司的相关文档，此时应处于静音状态。</p>
+<pre><code>- (void)viewDidLoad {
+    [super viewDidLoad];
+    // 注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRouteChange:) name:AVAudioSessionInterruptionNotification object:[AVAudioSession sharedInstance]];
+}
+- (void)dealloc {
+    // 移除通知
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+- (void)handleRouteChange:(NSNotification *)notification {
+    NSDictionary *info = notification.userInfo;
+    AVAudioSessionRouteChangeReason reason = [info[AVAudioSessionRouteChangeReasonKey] unsignedIntegerValue];
+    if (reason == AVAudioSessionRouteChangeReasonOldDeviceUnavailable) {
+        AVAudioSessionRouteDescription *previousRoute = info[AVAudioSessionRouteChangePreviousRouteKey];
+        AVAudioSessionPortDescription *previousOutput = previousRoute.outputs[0];
+        NSString *portType = previousOutput.portType;
+
+        if ([portType isEqualToString:AVAudioSessionPortHeadphones]) {
+            // 停止播放
+        }
+    }
+}
+</code></pre>
+  </section>
+
+</article>
+
+
+<section class="post-comments">
+  <!-- 多说评论框 start -->
+  <div class="ds-thread" data-thread-key="https://liangliangcn.github.io/archives/2017/08/15/AVAudioPlayer/" data-title="AVAudioPlayer" data-url="https://liangliangcn.github.io/archives/2017/08/15/AVAudioPlayer/"></div>
+  <!-- 多说评论框 end -->
+  <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+  <script type="text/javascript">
+  var duoshuoQuery = {short_name:"liangcn"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+  </script>
+<!-- 多说公共JS代码 end -->
+</section>
+
+
+
+            <footer class="footer">
+    <span class="footer__copyright">
+        基于 <a href="http://hexo.io">Hexo</a> 搭建，感谢 <a href="https://pages.github.com/">GitHub Pages</a> 提供免费的托管服务
+    </span>
+    <span class="footer__copyright">
+        &copy; 2017 - 本站由 <a href="/">@Liang Chuan Nan</a> 创建,
+        使用<a href="https://github.com/lenbo-ma/hexo-theme-vno">hexo-theme-vno</a>主题,
+        修改自<a href="http://github.com/onevcat/vno" target="_blank">Vno</a>
+    </span>
+</footer>
+
+        </div>
+    </div>
+
+    <script src="http://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+
+    
+</body>
+</html>
