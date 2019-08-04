@@ -4,7 +4,7 @@
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     
-    <title>梁梁 | 多一点分享，多一点感动</title>
+    <title>iOS 圆点分页控件 pageControl | 梁梁</title>
     <meta name="renderer" content="webkit">
     <meta name="HandheldFriendly" content="True">
     <meta name="MobileOptimized" content="320">
@@ -15,11 +15,11 @@
     <meta name="description" content="iOS">
 
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="梁梁 | 多一点分享，多一点感动">
+    <meta name="twitter:title" content="iOS 圆点分页控件 pageControl | 梁梁">
     <meta name="twitter:description" content="iOS">
 
     <meta property="og:type" content="article">
-    <meta property="og:title" content="梁梁 | 多一点分享，多一点感动">
+    <meta property="og:title" content="iOS 圆点分页控件 pageControl | 梁梁">
     <meta property="og:description" content="iOS">
 
     
@@ -35,7 +35,7 @@
     <meta name="generator" content="hexo"/>
     
 
-    <link rel="canonical" href="https://liangliangcn.github.io/archives"/>
+    <link rel="canonical" href="https://liangliangcn.github.io/archives/2019/08/04/圆点分页控件 pageControl/"/>
 
     
 </head>
@@ -124,60 +124,44 @@
 
     <div class="content-wrapper">
         <div class="content-wrapper__inner">
-            <div class="main-post-list">
-    
-  <ol class="post-list">
-  
-    
-    <li>
-      <h2 class="post-list__post-title post-title"><a href="/2016/07/19/关于Oauth认证的那些事/" title="link to post.title">关于Oauth认证的那些事</a></h2>
-      <p class="excerpt">
-    
-      随着网络的发展, Oauth认证已经被广泛使用. 这篇博客就记录一下Oauth的使用过程.
-以新浪微博为例.使用微博认证需要一个微博开发者的账号~下面先申请开发者账号，使用微博账号即可。
-1.准备操作:登录http://open.weibo.com, 登录你的微博帐号, 如果点击登录没有反应的话, 就先在http://www.weibo.com中登录一下, 然后就可以了.
-填写基本信息, 邮箱一定要写正确的, 因为稍后要验证.
-邮箱认证成功之后, 就可以正式开始进入我们的主题了
-2.创建应用(以
-    &hellip;
-      </p>
-      <div class="post-list__meta"><time datetime="2016-07-19T02:32:34.000Z" class="post-list__meta--date date">2016-07-19</time> &#8226; <span class="post-list__meta--tags tags">于&nbsp;
+            <article class="post-container post-container--single">
+
+  <header class="post-header">
+    <div class="post-meta">
+      <time datetime="2019-08-04T04:59:40.000Z" class="post-list__meta--date date">2019-08-04</time> &#8226; <span class="post-meta__tags tags">于&nbsp;
   <a class="tag-link" href="/tags/梁川楠创建/">梁川楠创建</a>
-</span><a class="btn-border-small" href="/2016/07/19/关于Oauth认证的那些事/">继续阅读</a></div>
-      <hr class="post-list__divider" />
-    </li>
-  
-    
-    <li>
-      <h2 class="post-list__post-title post-title"><a href="/2016/07/19/用-property声明的NSString-NSArray-NSDictionary-为什么要用copy/" title="link to post.title">用@property声明的NSString, NSArray, NSDictionary 为什么要用copy</a></h2>
-      <p class="excerpt">
-    
-      首先呢, 给大家看一个例子
+</span>
+    </div>
+    <h1 class="post-title">iOS 圆点分页控件 pageControl</h1>
+  </header>
 
-在上图中, 我们用的 strong 修饰的字符串, 当我们把一个可变的字符串赋值给它之后, 发生了一些, 我们并不想要的结果. 这个结果是由于多态的特性导致的. 父类指针指向了子类的对象, 当这个子类是可变的对象, 恰好又发生了修改的时候, 就影响到了父类的属性, 所以出现了我们看到的结果
-而如果我们用copy来修饰字符串的话, 就不会有这些问题
-copy 字面意思就是 “复制”, “拷贝”, 它就是一个产生副本的过程.它最大的特点就是: 源文件和副本文件不会相互影
-    &hellip;
-      </p>
-      <div class="post-list__meta"><time datetime="2016-07-19T02:16:08.000Z" class="post-list__meta--date date">2016-07-19</time> &#8226; <span class="post-list__meta--tags tags">于&nbsp;
-  <a class="tag-link" href="/tags/梁川楠创建/">梁川楠创建</a>
-</span><a class="btn-border-small" href="/2016/07/19/用-property声明的NSString-NSArray-NSDictionary-为什么要用copy/">继续阅读</a></div>
-      <hr class="post-list__divider" />
-    </li>
-  
-    
-  </ol>
+  <section class="post">
+    <h2 id="iOS-圆点分页控件-pageControl"><a href="#iOS-圆点分页控件-pageControl" class="headerlink" title="iOS 圆点分页控件 pageControl"></a>iOS 圆点分页控件 pageControl</h2><p>效果图：</p>
+<p><img src="https://img-blog.csdnimg.cn/20190803210817778.gif" alt="在这里插入图片描述"></p>
+
+  </section>
+
+</article>
 
 
-  <nav class="pagination" role="navigation">
-    
-      <a class="older-posts pagination__older btn btn-small btn-tertiary" href="/#blog">Prev</a>
-    
-    
-  </nav>
-
-
-</div>
+<section class="post-comments">
+  <!-- 多说评论框 start -->
+  <div class="ds-thread" data-thread-key="https://liangliangcn.github.io/archives/2019/08/04/圆点分页控件 pageControl/" data-title="iOS 圆点分页控件 pageControl" data-url="https://liangliangcn.github.io/archives/2019/08/04/圆点分页控件 pageControl/"></div>
+  <!-- 多说评论框 end -->
+  <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+  <script type="text/javascript">
+  var duoshuoQuery = {short_name:"liangcn"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+  </script>
+<!-- 多说公共JS代码 end -->
+</section>
 
 
 
